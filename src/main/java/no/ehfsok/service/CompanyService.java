@@ -18,7 +18,7 @@ public class CompanyService {
 	@Autowired
 	private OrganizationFormRepo organizationFormRepo;
 
-	public Company getOrCreate(String name, int orgNumber) {
+	public Company getOrCreate(String name, long orgNumber) {
 		return companyRepo.findById(orgNumber).orElseGet(() -> {
 
 			Company company = new Company();

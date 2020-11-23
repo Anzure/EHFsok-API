@@ -17,7 +17,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class Company {
 
 	@Id
-	private int organizationNumber;
+	private long organizationNumber;
 
 	@Column(nullable = false)
 	private String name;
@@ -40,11 +40,11 @@ public class Company {
 	@CreationTimestamp
 	private LocalDateTime createdAt;
 
-	public int getOrganizationNumber() {
+	public long getOrganizationNumber() {
 		return organizationNumber;
 	}
 
-	public void setOrganizationNumber(int organizationNumber) {
+	public void setOrganizationNumber(long organizationNumber) {
 		this.organizationNumber = organizationNumber;
 	}
 

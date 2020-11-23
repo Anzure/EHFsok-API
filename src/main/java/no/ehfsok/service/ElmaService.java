@@ -6,14 +6,17 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.io.input.BOMInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,25 +57,27 @@ public class ElmaService {
 			Files.copy(in, target, StandardCopyOption.REPLACE_EXISTING);
 		}
 		File file = target.toFile();
-		file.deleteOnExit();
 		log.info("Successfully downloaded CSV.");
 
 		// Process
 		log.info("Processing spreadsheet...");
 		URL localUrl = file.toURI().toURL();
-		Reader reader = new InputStreamReader(new BOMInputStream(localUrl.openStream()), "UTF-8");
+		Reader reader = new InputStreamReader(new BOMInputStream(localUrl.openStream()), StandardCharsets.UTF_8);
+		//		CharacterFilterReader filterReader = new CharacterFilterReader();
 		CSVFormat format = CSVFormat.DEFAULT.withIgnoreHeaderCase().withAllowMissingColumnNames().withDelimiter(';')
-				.withFirstRecordAsHeader().withQuote('"').withNullString("");
+				.withFirstRecordAsHeader().withQuote('"').withNullString("").withIgnoreSurroundingSpaces().withIgnoreEmptyLines()
+				.withEscape('\\');
 		CSVParser parser = new CSVParser(reader, format);
+		List<CSVRecord> records = parser.getRecords();
 
 		// Loop trough all rows
-		parser.forEach(record -> {
+		records.forEach(record -> {
 
 			// Retrieve row variables
 			String name = record.get("name");
 			String regDate = record.get("regdate");
 			int icdNumber = Integer.parseInt(record.get("Icd"));
-			int orgNumber = Integer.parseInt(record.get("identifier"));
+			long orgNumber = Long.parseLong(record.get("identifier"));
 			LocalDate date = LocalDate.parse(regDate, DateTimeFormatter.ofPattern("yyyy.MM.dd"));
 
 			// Create or get Company from storage
@@ -93,6 +98,7 @@ public class ElmaService {
 		// Process complete
 		parser.close();
 		reader.close();
+		file.delete();
 		log.info("Successfully processed CSV.");
 		updateInProgress = false;
 
