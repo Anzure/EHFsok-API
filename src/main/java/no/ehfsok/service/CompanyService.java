@@ -2,9 +2,7 @@ package no.ehfsok.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import no.ehfsok.dao.CompanyRepo;
-import no.ehfsok.dao.OrganizationFormRepo;
 import no.ehfsok.model.Company;
 
 @Service
@@ -14,9 +12,6 @@ public class CompanyService {
 
 	@Autowired
 	private CompanyRepo companyRepo;
-
-	@Autowired
-	private OrganizationFormRepo organizationFormRepo;
 
 	public Company getOrCreate(String name, long orgNumber) {
 		return companyRepo.findById(orgNumber).orElseGet(() -> {
