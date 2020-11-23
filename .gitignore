@@ -1,6 +1,8 @@
 mvnw.cmd
 mvnw
 .mvn/
+*.csv
+application.properties
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar

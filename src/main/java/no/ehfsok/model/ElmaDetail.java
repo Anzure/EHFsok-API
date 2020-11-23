@@ -2,35 +2,34 @@ package no.ehfsok.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-public class Company {
+public class ElmaDetail {
 
 	@Id
-	private int organizationNumber;
+	@GeneratedValue
+	@Type(type="uuid-char")
+	private UUID id;
+
+	@OneToOne
+	@JoinColumn(name="organization_number", nullable=true)
+	private Company company;
 
 	@Column(nullable = false)
-	private String name;
+	private int icd;
 
-	@ManyToOne
-	@JoinColumn(name="organization_form_id", nullable=true)
-	private OrganizationForm organizationForm;
-
-	@Column(nullable = true)
+	@Column(nullable = false)
 	private LocalDate registrationDate;
-
-	@OneToOne(mappedBy = "company")
-	private ElmaDetail elmaDetail;
 
 	@Column(nullable = false)
 	@UpdateTimestamp
@@ -40,28 +39,28 @@ public class Company {
 	@CreationTimestamp
 	private LocalDateTime createdAt;
 
-	public int getOrganizationNumber() {
-		return organizationNumber;
+	public UUID getId() {
+		return id;
 	}
 
-	public void setOrganizationNumber(int organizationNumber) {
-		this.organizationNumber = organizationNumber;
+	public void setId(UUID id) {
+		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public Company getCompany() {
+		return company;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
-	public OrganizationForm getOrganizationForm() {
-		return organizationForm;
+	public int getIcd() {
+		return icd;
 	}
 
-	public void setOrganizationForm(OrganizationForm organizationForm) {
-		this.organizationForm = organizationForm;
+	public void setIcd(int icd) {
+		this.icd = icd;
 	}
 
 	public LocalDate getRegistrationDate() {
