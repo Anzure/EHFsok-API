@@ -13,7 +13,6 @@ import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -41,7 +40,7 @@ public class ElmaService {
 	@Autowired
 	private CompanyService companyService;
 
-	@PostConstruct
+//	@PostConstruct
 	public void update() throws IOException {
 
 		if (updateInProgress) {
