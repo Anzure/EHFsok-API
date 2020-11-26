@@ -1,0 +1,25 @@
+name: Maven-Docker
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Maven builder
+      run: |
+        echo 'Building jar'
+        mvn install -DskipTests
+    - name: Docker builder
+      env:
+         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+         DOCKER_REPOSITORY: 'anzure/ehfsok-api'
+      run: |
+        echo 'Docker login'
+        docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+        echo 'Building image'
+        docker build -t $DOCKER_REPOSITORY .
+        echo 'Pushing image'
+        docker push $DOCKER_REPOSITORY
