@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>no.ehfsok</groupId>
-	<artifactId>EhfSok</artifactId>
+	<artifactId>EHFsok-API</artifactId>
 	<version>1.0</version>
-	<name>EhfSok</name>
-	<description>EHF Sok</description>
+	<name>EHFsok-API</name>
+	<description>Search in ELMA EHF registry</description>
 
 	<properties>
 		<java.version>11</java.version>
