@@ -1,5 +1,5 @@
 # Start with a base image containing Java runtime
-FROM adoptopenjdk/openjdk11
+FROM maslick/minimalka:jdk11
 
 # Add Maintainer Info
 LABEL maintainer="mail@odit.no"
@@ -8,7 +8,7 @@ LABEL maintainer="mail@odit.no"
 VOLUME /tmp
 
 # Make port available to the world outside this container
-EXPOSE 80
+EXPOSE 8080
 
 # The application's jar file
 ARG JAR_FILE=target/EHFsok-API-1.0.jar
@@ -17,7 +17,7 @@ ARG JAR_FILE=target/EHFsok-API-1.0.jar
 ADD ${JAR_FILE} EHFsok-API.jar
 
 # Run the jar file
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/EHFsok-API.jar"]
+ENTRYPOINT ["java","-jar","/EHFsok-API.jar"]
 
 # Building command:
 # docker build -t ehfsok-api .
