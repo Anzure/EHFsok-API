@@ -13,7 +13,11 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Getter @Setter
 public class ElmaDetail {
 
 	@Id
@@ -26,7 +30,7 @@ public class ElmaDetail {
 	private Company company;
 
 	@Column(nullable = false)
-	private int icd;
+	private Integer icd;
 
 	@Column(nullable = false)
 	private LocalDate registrationDate;
@@ -39,51 +43,4 @@ public class ElmaDetail {
 	@CreationTimestamp
 	private LocalDateTime createdAt;
 
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
-	public Company getCompany() {
-		return company;
-	}
-
-	public void setCompany(Company company) {
-		this.company = company;
-	}
-
-	public int getIcd() {
-		return icd;
-	}
-
-	public void setIcd(int icd) {
-		this.icd = icd;
-	}
-
-	public LocalDate getRegistrationDate() {
-		return registrationDate;
-	}
-
-	public void setRegistrationDate(LocalDate registrationDate) {
-		this.registrationDate = registrationDate;
-	}
-
-	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
 }

@@ -13,11 +13,15 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Getter @Setter
 public class Company {
 
 	@Id
-	private long organizationNumber;
+	private Long organizationNumber;
 
 	@Column(nullable = false)
 	private String name;
@@ -40,51 +44,4 @@ public class Company {
 	@CreationTimestamp
 	private LocalDateTime createdAt;
 
-	public long getOrganizationNumber() {
-		return organizationNumber;
-	}
-
-	public void setOrganizationNumber(long organizationNumber) {
-		this.organizationNumber = organizationNumber;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public OrganizationForm getOrganizationForm() {
-		return organizationForm;
-	}
-
-	public void setOrganizationForm(OrganizationForm organizationForm) {
-		this.organizationForm = organizationForm;
-	}
-
-	public LocalDate getRegistrationDate() {
-		return registrationDate;
-	}
-
-	public void setRegistrationDate(LocalDate registrationDate) {
-		this.registrationDate = registrationDate;
-	}
-
-	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
 }

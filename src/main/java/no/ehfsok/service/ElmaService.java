@@ -17,18 +17,16 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.io.input.BOMInputStream;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
 import no.ehfsok.dao.ElmaDetailRepo;
 import no.ehfsok.model.Company;
 import no.ehfsok.model.ElmaDetail;
 
 @Service
+@Slf4j
 public class ElmaService {
-
-	private static final Logger log = LoggerFactory.getLogger(ElmaService.class);
 
 	private String spreadsheetSource = "https://hotell.difi.no/download/difi/elma/participants?download";
 
@@ -40,7 +38,7 @@ public class ElmaService {
 	@Autowired
 	private CompanyService companyService;
 
-//	@PostConstruct
+	//	@PostConstruct
 	public void update() throws IOException {
 
 		if (updateInProgress) {
